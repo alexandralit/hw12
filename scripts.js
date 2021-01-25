@@ -1,10 +1,10 @@
 class User {
     constructor(name, email, address, phone) {
         this.data = {
-          name: name,
-          email: email,
-          address: address,
-          phone: phone        
+            name: name,
+            email: email,
+            address: address,
+            phone: phone        
         };
     }
 
@@ -39,7 +39,7 @@ class Contacts {
     }
 
     get storage() {
-        return localStorage.getItem('contactsData');
+        return JSON.parse(localStorage.getItem('contactsData'));
     }
 }
 
@@ -75,10 +75,10 @@ class ContactsApp extends Contacts {
 
         const btnAdd = document.querySelector('.add');
         btnAdd.addEventListener('click', () => {
-            const name = document.getElementsByTagName("input")[0];
-            const email = document.getElementsByTagName("input")[1];
-            const address = document.getElementsByTagName("input")[2];
-            const phone = document.getElementsByTagName("input")[3];   
+            let name = document.getElementsByTagName("input")[0],
+                email = document.getElementsByTagName("input")[1],
+                address = document.getElementsByTagName("input")[2],
+                phone = document.getElementsByTagName("input")[3];     
 
             self.storage = {name: name.value, email: email.value, address: address.value, phone: phone.value};
 
@@ -140,6 +140,7 @@ class ContactsApp extends Contacts {
                     delete result[id];
                     localStorage.setItem('contactsData', JSON.stringify(result));
                 }
+                
                 removeContacts(user.id);
             });
             
