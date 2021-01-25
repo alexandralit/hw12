@@ -24,14 +24,7 @@ class Contacts {
         this.arrContacts.push({id: this.arrContacts.length, ...userGet});
         localStorage.setItem('contactsData', JSON.stringify(this.arrContacts));
 
-        /*let date = new Date(Date.now() + 50000); 
-        date = date.toUTCString();
-        document.cookie = 'storageExpiration=Contacts'+this.arrContacts.length+'; expires='+date+ '; path=/';
-        debugger;
-        console.log(this.arrContacts.length);
-        console.log(document.cookie);*/
-
-        document.cookie = "user=" + this.arrContacts.length + "; max-age=" + (60 * 60 * 24 * 10);
+        document.cookie = "storageExpiration=Contacts_" + this.arrContacts.length + "; max-age=" + (60 * 60 * 24 * 10);
     }
 
     edit(id, name, email, address, phone) {
@@ -112,7 +105,6 @@ class ContactsApp extends Contacts {
 
     createContacts() {
         const self = this;
-        console.log(this.arrContacts);
         const localContacts = localStorage.getItem('contactsData'),
               dataContacts  = JSON.parse(localContacts);
         
@@ -169,7 +161,11 @@ class ContactsApp extends Contacts {
                 }
                 editContacts(user.id, user.name, user.email, user.address, user.phone);
 			});
-		});
+        });
+        
+        setTimeout(() => {
+            localStorage.clear();
+        }, 8.64e+8);
     }
 }
 
